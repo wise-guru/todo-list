@@ -66,18 +66,18 @@ function createSidebar() {
             weekText.textContent = 'Week'
             week.appendChild(weekText)
 
-        const projectsTitle = document.createElement('li')
-        projectsTitle.classList.add('projects')
-        projectsTitle.textContent = 'Projects'
-        sidebarContent.appendChild(projectsTitle)
+        const categoriesTitle = document.createElement('li')
+        categoriesTitle.classList.add('categories')
+        categoriesTitle.textContent = 'Categories'
+        sidebarContent.appendChild(categoriesTitle)
         
 
-        const addProjects = document.createElement('li')
-        sidebarContent.appendChild(addProjects)
+        const addCategories = document.createElement('li')
+        sidebarContent.appendChild(addCategories)
 
-            const addProjectsBtn = document.createElement('button')
-            addProjectsBtn.textContent = 'Add Project +'
-            addProjects.appendChild(addProjectsBtn)
+            const addCategoriesBtn = document.createElement('button')
+            addCategoriesBtn.textContent = 'Add Categories +'
+            addCategories.appendChild(addCategoriesBtn)
             
 
 
