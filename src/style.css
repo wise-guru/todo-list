@@ -76,4 +76,8 @@ li {
     cursor: pointer;
 }
 
+.x-btn:hover {
+    color: rgb(105, 100, 100);
+}
+
 

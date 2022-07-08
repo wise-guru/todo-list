@@ -1,4 +1,4 @@
-import loadTaskModal from "./task"
+import loadTaskModal from "./task-modal.js"
 
 function showHome() {
     const homeContent = document.createElement('div')
