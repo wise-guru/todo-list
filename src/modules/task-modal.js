@@ -59,6 +59,7 @@ function addTasksModal() {
                     taskDate.appendChild(dateLabel)
 
                     const dateInput = document.createElement('input')
+                    dateInput.type = 'date'
                     dateInput.id = 'taskDate'
                     taskDate.appendChild(dateInput)
                 
@@ -105,11 +106,11 @@ function addTasksModal() {
                         categoriesSelect.name = 'categories'
                         taskCategories.appendChild(categoriesSelect)
 
-
                         const allTasks = document.createElement('option')
                         allTasks.value = 'all'
                         allTasks.textContent = 'All tasks'
                         categoriesSelect.appendChild(allTasks)
+
 
                 const closeBtn = document.createElement('button')
                 closeBtn.classList.add('close-btn', 'task-btn')
@@ -120,6 +121,7 @@ function addTasksModal() {
                         handleClick('close')
                     })
 
+                    
                 const addTaskBtn = document.createElement('button')
                 addTaskBtn.classList.add('task-btn')
                 addTaskBtn.textContent = 'Add'
