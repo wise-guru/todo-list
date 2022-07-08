@@ -66,3 +66,14 @@ li {
     text-align: center;
     padding: 20px;
 }
+
+.x-btn {
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+
