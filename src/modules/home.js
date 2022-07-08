@@ -1,3 +1,5 @@
+import loadTaskModal from "./task"
+
 function showHome() {
     const homeContent = document.createElement('div')
 
@@ -8,6 +10,8 @@ function showHome() {
     const addTaskBtn = document.createElement('button')
     addTaskBtn.textContent = "Add Task +"
     homeContent.appendChild(addTaskBtn)
+
+    addTaskBtn.addEventListener('click', loadTaskModal)
 
     return homeContent
 }
