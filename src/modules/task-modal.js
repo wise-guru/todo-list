@@ -1,3 +1,5 @@
+import validateForm from "./tasks.js"
+
 function addTasksModal() {
     const taskModal = document.createElement('div')
     taskModal.classList.add('bg-modal')
@@ -21,6 +23,7 @@ function addTasksModal() {
 
 
             const taskForm = document.createElement('form')
+            taskForm.classList.add('task-form')
             modalContent.appendChild(taskForm)
 
                 const taskTitle = document.createElement('div')
@@ -28,12 +31,12 @@ function addTasksModal() {
                 taskForm.appendChild(taskTitle)
 
                     const titleLabel = document.createElement('label')
-                    titleLabel.htmlFor = 'taskTitle'
+                    titleLabel.htmlFor = 'titleInput'
                     titleLabel.textContent = 'Title:'
                     taskTitle.appendChild(titleLabel)
 
                     const titleInput = document.createElement('input')
-                    titleInput.id = 'taskTitle'
+                    titleInput.id = 'titleInput'
                     taskTitle.appendChild(titleInput)
 
                 const taskDescription = document.createElement('div')
@@ -41,12 +44,12 @@ function addTasksModal() {
                 modalContent.appendChild(taskDescription)
 
                     const descriptionLabel = document.createElement('label')
-                    descriptionLabel.htmlFor = 'taskDesc'
+                    descriptionLabel.htmlFor = 'descInput'
                     descriptionLabel.textContent = 'Description:'
                     taskDescription.appendChild(descriptionLabel)
 
                     const descriptionInput = document.createElement('input')
-                    descriptionInput.id = 'taskDesc'
+                    descriptionInput.id = 'descInput'
                     taskDescription.appendChild(descriptionInput)
                 
                 const taskDate = document.createElement('div')
@@ -54,13 +57,13 @@ function addTasksModal() {
                 modalContent.appendChild(taskDate)
 
                     const dateLabel = document.createElement('label')
-                    dateLabel.htmlFor = 'taskDate'
+                    dateLabel.htmlFor = 'dateInput'
                     dateLabel.textContent = 'Date:'
                     taskDate.appendChild(dateLabel)
 
                     const dateInput = document.createElement('input')
                     dateInput.type = 'date'
-                    dateInput.id = 'taskDate'
+                    dateInput.id = 'dateInput'
                     taskDate.appendChild(dateInput)
                 
                 const taskPriority = document.createElement('div')
@@ -126,15 +129,26 @@ function addTasksModal() {
                 addTaskBtn.classList.add('task-btn')
                 addTaskBtn.textContent = 'Add'
                 modalContent. appendChild(addTaskBtn)
+
+                    addTaskBtn.addEventListener('click', function(e) {
+                        handleClick(e)
+                    })
     
     return taskModal
 }
 
-function handleClick() {
-    if ('close') {
-        document.querySelector('.bg-modal').remove()
+function handleClick(e) {
+    const module = document.querySelector('.bg-modal')
+
+    if (e === 'close') {
+        module.remove()
+    }
+    else {
+        validateForm(e)
+        module.remove()
     }
 }
+
 
 function loadTaskModal() {
     const container = document.querySelector('#container')
