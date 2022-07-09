@@ -92,14 +92,8 @@ function createMain() {
     main.classList.add('main')
     main.id = 'main'
 
+
     return main;
-
-}
-
-function createContent() {
-    const contentTitle = document.createElement('h1')
-    createMain().appendChild(contentTitle)
-    contentTitle.textContent = 'All Tasks'
 
 }
 
