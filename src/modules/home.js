@@ -1,4 +1,4 @@
-import loadTaskModal from "./task-modal.js"
+import loadModals from "./modal.js"
 
 function showHome() {
     const homeContent = document.createElement('div')
@@ -12,7 +12,9 @@ function showHome() {
     addTaskBtn.textContent = "Add Task +"
     homeContent.appendChild(addTaskBtn)
 
-    addTaskBtn.addEventListener('click', loadTaskModal)
+    addTaskBtn.addEventListener('click', function(e) {
+        loadModals('task')
+    })
 
 
     const taskContainer = document.createElement('div')

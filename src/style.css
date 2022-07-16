@@ -15,7 +15,7 @@ body {
 .sidebar {
     color: white;
     font-weight: bold;
-    background-color: #10b981;
+    background-color: #334155;
     display: grid;
     grid-template-rows: 1fr 4fr 2fr;
     grid-row: 1 / 5;
@@ -43,6 +43,15 @@ li {
     justify-content: start;
     align-items: center;
     gap: 16px;
+}
+
+.menu:hover {
+    background-color: #415269;
+    cursor: pointer;
+}
+
+.menu:active {
+    background-color: #2a3747;
 }
 
 
@@ -78,6 +87,20 @@ li {
 
 .x-btn:hover {
     color: rgb(105, 100, 100);
+}
+
+.task-row {
+    padding: 0.5rem;
+}
+
+.first-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-left, .task-right {
+    display: flex;
 }
 
 

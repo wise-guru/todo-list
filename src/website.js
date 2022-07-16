@@ -3,6 +3,8 @@ import loadHome from './modules/home';
 import HomeIcon from './img/home.png';
 import TodayIcon from './img/today.png';
 import WeekIcon from './img/week.png'
+import loadModals from './modules/modal';
+import {showTaskInfo} from './modules/tasks.js'
 
 function createHeader() {
     const header = document.createElement('div')
@@ -34,6 +36,7 @@ function createSidebar() {
             sidebarTitle.appendChild(titleText)
         
         const home = document.createElement('li');
+        home.classList.add('menu')
         sidebarContent.appendChild(home)
 
             const homeImg = new Image ()
@@ -46,6 +49,7 @@ function createSidebar() {
 
         const today = document.createElement('li')
         sidebarContent.appendChild(today)
+        today.classList.add('menu')
 
             const todayImg = new Image()
             todayImg.src = TodayIcon
@@ -57,6 +61,7 @@ function createSidebar() {
         
         const week = document.createElement('li')
         sidebarContent.appendChild(week)
+        week.classList.add('menu')
 
             const weekImg = new Image()
             weekImg.src = WeekIcon
@@ -78,6 +83,10 @@ function createSidebar() {
             const addCategoriesBtn = document.createElement('button')
             addCategoriesBtn.textContent = 'Add Categories +'
             addCategories.appendChild(addCategoriesBtn)
+
+            addCategoriesBtn.addEventListener('click', function(e) {
+                loadModals('category')
+            })
             
 
 
@@ -116,6 +125,7 @@ function initializeWebsite() {
     container.appendChild(createFooter())
 
     loadHome();
+    showTaskInfo();
 }
 
 initializeWebsite()
