@@ -8,6 +8,7 @@ function showHome() {
     homeTitle.textContent = 'All Tasks'
     homeContent.appendChild(homeTitle)
 
+
     const addTaskBtn = document.createElement('button')
     addTaskBtn.textContent = "Add Task +"
     homeContent.appendChild(addTaskBtn)
