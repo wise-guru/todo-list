@@ -26,10 +26,53 @@ function showHome() {
     return homeContent
 }
 
-function loadHome() {
-    const main = document.querySelector('#main');
-    main.textContent = '';
-    main.appendChild(showHome());
+function showToday() {
+    const todayContent = document.createElement('div');
+    todayContent.classList.add('today-content');
+
+    const todayTitle = document.createElement('h1');
+    todayTitle.textContent = `Today's Tasks`;
+    todayContent.appendChild(todayTitle);
+
+    const taskContainer = document.createElement('div')
+    taskContainer.classList.add('task-container')
+    taskContainer.id = 'task-container'
+    todayContent.appendChild(taskContainer)
+
+    return todayContent
 }
 
-export default loadHome
+function showThisWeek() {
+    const weekContent = document.createElement('div')
+    weekContent.classList.add('week-content');
+
+    const weekTitle = document.createElement('h1');
+    weekTitle.textContent = `This Week's Tasks`;
+    weekContent.appendChild(weekTitle);
+
+    const taskContainer = document.createElement('div')
+    taskContainer.classList.add('task-container')
+    taskContainer.id = 'task-container'
+    weekContent.appendChild(taskContainer)
+}
+
+
+
+function loadPage(page) {
+    const main = document.querySelector('#main');
+    main.textContent = '';
+
+    if (page === 'home') {
+        main.appendChild(showHome());
+    }
+
+    if (page === 'today') {
+        main.appendChild(showToday());
+    }
+
+    if (page == 'week') {
+        main.appendChild(showThisWeek());
+    }
+}
+
+export {loadPage}
