@@ -54,6 +54,8 @@ function showThisWeek() {
     taskContainer.classList.add('task-container')
     taskContainer.id = 'task-container'
     weekContent.appendChild(taskContainer)
+
+    return weekContent
 }
 
 
@@ -64,13 +66,9 @@ function loadPage(page) {
 
     if (page === 'home') {
         main.appendChild(showHome());
-    }
-
-    if (page === 'today') {
+    }   else if (page === 'today') {
         main.appendChild(showToday());
-    }
-
-    if (page == 'week') {
+    }   else if (page == 'week') {
         main.appendChild(showThisWeek());
     }
 }
