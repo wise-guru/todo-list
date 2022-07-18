@@ -14,7 +14,7 @@ function clearCategories() {
 
     const removeChilds = (categories) => {
         while (categories.lastChild) {
-            categories.removeChild(categories)
+            categories.removeChild(categories.lastChild)
         }
     }
 removeChilds(categoryContainer)
