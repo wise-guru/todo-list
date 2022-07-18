@@ -1,31 +1,35 @@
-export default class Category {
-    constructor (title) {
-        this.title = title;
-        this.tasks = []
-    }
+import Category from "./category-entry";
 
-    getTitle() {
-        return this.title;
-    }
+let categoryDatabase = JSON.parse(localStorage.getItem('categories')) || [];
 
-    setTitle(newTitle) {
-        this.title = newTitle;
-    }
+function addCategory(title) {
+    let category = new Category(title)
+    categoryDatabase.push(category);
+    showCategoryInfo(category);
+}
 
-    addTasktoCategory(task) {
-        this.tasks.push(task);
+function clearCategories() {
+    const removeChilds = (grid) => {
+        while (grid.lastChild) {
+            grid.removeChild(grid.lastChild)
+        }
     }
-
-    getTaskfromCategory(task) {
-        return this.tasks.find(title => title.title === task);
-    }
-
-    getTasks() {
-        return this.tasks;
-    }
-
-    resetTasks() {
-        this.tasks = []
-    }
+removeChilds(document.querySelector('#category'))
 
 }
+
+
+function showCategoryInfo() {
+    const categoryContainer = document.querySelector('#category-container');
+    localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+    clearCategories()
+
+    categoryDatabase.forEach(category => {
+        const categoryTitle = document.createElement('li');
+        categoryTitle.textContent = category;
+        categoryContainer.appendChild(categoryTitle)
+        categoryTitle.classList.add('category')
+    })
+
+}
+
