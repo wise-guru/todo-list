@@ -2,6 +2,7 @@ import Category from "./category-entry";
 
 let categoryDatabase = JSON.parse(localStorage.getItem('categories')) || [];
 
+
 function addCategory(title) {
     let category = new Category(title)
     categoryDatabase.push(category);
@@ -9,27 +10,36 @@ function addCategory(title) {
 }
 
 function clearCategories() {
-    const removeChilds = (grid) => {
-        while (grid.lastChild) {
-            grid.removeChild(grid.lastChild)
+    const categoryContainer = document.querySelector('#category-container');
+
+    const removeChilds = (categories) => {
+        while (categories.lastChild) {
+            categories.removeChild(categories)
         }
     }
-removeChilds(document.querySelector('#category'))
+removeChilds(categoryContainer)
 
 }
 
 
 function showCategoryInfo() {
     const categoryContainer = document.querySelector('#category-container');
-    localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+    localStorage.setItem('categories', JSON.stringify(categoryDatabase))
     clearCategories()
 
     categoryDatabase.forEach(category => {
         const categoryTitle = document.createElement('li');
-        categoryTitle.textContent = category;
+        categoryTitle.textContent = category.title;
         categoryContainer.appendChild(categoryTitle)
         categoryTitle.classList.add('category')
     })
 
+return categoryContainer
+
 }
+
+export {addCategory, showCategoryInfo}
+
+
+
 
