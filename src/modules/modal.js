@@ -1,4 +1,4 @@
-import {validateForm} from "./tasks.js"
+import {validateCategoryForm ,closeModal, validateTaskForm} from "./validate-form"
 
 function addTasksModal() {
     const taskModal = document.createElement('div')
@@ -14,7 +14,7 @@ function addTasksModal() {
             modalContent.appendChild(xBtn)
 
                 xBtn.addEventListener('click', function(e) {
-                    handleClick('close')
+                    closeModal(e)
                 })
 
             const taskHeading = document.createElement('p')
@@ -104,7 +104,7 @@ function addTasksModal() {
                     categoriesLabel.textContent = 'Categories'
                     taskCategories.appendChild(categoriesLabel)
 
-                        const categoriesSelect = document.createElement('select')
+                        const categoriesSelect = document.createElement('datalist')
                         categoriesSelect.id = 'categories'
                         categoriesSelect.name = 'categories'
                         taskCategories.appendChild(categoriesSelect)
@@ -121,7 +121,7 @@ function addTasksModal() {
                 modalContent.appendChild(closeBtn)
 
                     closeBtn.addEventListener('click', function(e) {
-                        handleClick('close')
+                        closeModal(e)
                     })
 
                     
@@ -131,7 +131,7 @@ function addTasksModal() {
                 modalContent. appendChild(addTaskBtn)
 
                     addTaskBtn.addEventListener('click', function(e) {
-                        handleClick(e)
+                        validateTaskForm(e)
                     })
     
     return taskModal
@@ -151,7 +151,7 @@ function editTaskModal() {
             modalContent.appendChild(xBtn)
 
                 xBtn.addEventListener('click', function(e) {
-                    handleClick('close')
+                    closeModal(e)
                 })
 
             const taskHeading = document.createElement('p')
@@ -258,7 +258,7 @@ function editTaskModal() {
                 modalContent.appendChild(closeBtn)
 
                     closeBtn.addEventListener('click', function(e) {
-                        handleClick('close')
+                        closeModal(e)
                     })
 
                     
@@ -268,11 +268,12 @@ function editTaskModal() {
                 modalContent. appendChild(addTaskBtn)
 
                     addTaskBtn.addEventListener('click', function(e) {
-                        handleClick(e)
+                        validateTaskForm(e)
                     })
     
     return taskModal
 }
+
 
 function addCategoriesModal() {
     const categoryModal = document.createElement('div')
@@ -288,7 +289,7 @@ function addCategoriesModal() {
             modalContent.appendChild(xBtn)
 
                 xBtn.addEventListener('click', function(e) {
-                    handleClick('close')
+                    closeModal(e)
                 })
 
             const categoryHeading = document.createElement('p')
@@ -319,34 +320,22 @@ function addCategoriesModal() {
                 modalContent.appendChild(closeBtn)
 
                     closeBtn.addEventListener('click', function(e) {
-                        handleClick('close')
+                        closeModal(e)
                     })
 
                     
-                const addTaskBtn = document.createElement('button')
-                addTaskBtn.classList.add('task-btn')
-                addTaskBtn.textContent = 'Add Category'
-                modalContent.appendChild(addTaskBtn)
+                const addCategoriesBtn = document.createElement('button')
+                addCategoriesBtn.classList.add('categories-btn')
+                addCategoriesBtn.textContent = 'Add Category'
+                modalContent.appendChild(addCategoriesBtn)
 
-                    addTaskBtn.addEventListener('click', function(e) {
-                        handleClick(e)
+                    addCategoriesBtn.addEventListener('click', function(e) {
+                        validateCategoryForm(e)
                     })
 
     return categoryModal
 }
 
-
-function handleClick(e) {
-    const module = document.querySelector('.bg-modal')
-
-    if (e === 'close') {
-        module.remove()
-    }
-    else {
-        validateForm(e)
-        module.remove()
-    }
-}
 
 
 
