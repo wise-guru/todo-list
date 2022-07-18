@@ -8,3 +8,4 @@ export default class Task {
         this.categories = categories;
     }
 }
+
