@@ -1,10 +1,11 @@
 import Icon from './img/checkmark.png';
-import loadHome from './modules/home';
+import {loadPage} from './modules/home';
 import HomeIcon from './img/home.png';
 import TodayIcon from './img/today.png';
 import WeekIcon from './img/week.png'
 import loadModals from './modules/modal';
 import {showTaskInfo} from './modules/tasks.js'
+import { showCategoryInfo } from './modules/categories';
 
 function createHeader() {
     const header = document.createElement('div')
@@ -47,6 +48,10 @@ function createSidebar() {
             homeText.textContent = 'Home'
             home.appendChild(homeText)
 
+            home.addEventListener('click', function(e) {
+                initializeWebsite();
+            })
+
         const today = document.createElement('li')
         sidebarContent.appendChild(today)
         today.classList.add('menu')
@@ -58,6 +63,11 @@ function createSidebar() {
             const todayText = document.createElement('p')
             todayText.textContent = 'Today'
             today.appendChild(todayText)
+
+            today.addEventListener('click', function(e) {
+                loadPage('today')
+            })
+
         
         const week = document.createElement('li')
         sidebarContent.appendChild(week)
@@ -71,10 +81,20 @@ function createSidebar() {
             weekText.textContent = 'Week'
             week.appendChild(weekText)
 
+            week.addEventListener('click', function(e) {
+                loadPage('week')
+            })
+        
+  
+
         const categoriesTitle = document.createElement('li')
         categoriesTitle.classList.add('categories')
         categoriesTitle.textContent = 'Categories'
         sidebarContent.appendChild(categoriesTitle)
+
+        const categoriesContainer = document.createElement('div');
+        sidebarContent.appendChild(categoriesContainer);
+        categoriesContainer.id = 'category-container';
         
 
         const addCategories = document.createElement('li')
@@ -87,11 +107,6 @@ function createSidebar() {
             addCategoriesBtn.addEventListener('click', function(e) {
                 loadModals('category')
             })
-            
-
-
-
-
 
     return sidebar;
 }
@@ -100,7 +115,6 @@ function createMain() {
     const main = document.createElement('div')
     main.classList.add('main')
     main.id = 'main'
-
 
     return main;
 
@@ -124,7 +138,8 @@ function initializeWebsite() {
     container.appendChild(createMain())
     container.appendChild(createFooter())
 
-    loadHome();
+    showCategoryInfo();
+    loadPage('home');
     showTaskInfo();
 }
 
