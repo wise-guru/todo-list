@@ -1,4 +1,8 @@
 import {validateCategoryForm ,closeModal, validateTaskForm} from "./validate-form"
+import { showTaskModalCategories } from "./categories"
+import Category from "./category-entry"
+
+let categoryDatabase = JSON.parse(localStorage.getItem('categories')) || [];
 
 function addTasksModal() {
     const taskModal = document.createElement('div')
@@ -100,19 +104,29 @@ function addTasksModal() {
                 modalContent.appendChild(taskCategories)
 
                     const categoriesLabel = document.createElement('label')
-                    categoriesLabel.htmlFor = 'categories'
+                    categoriesLabel.htmlFor = 'categories-select'
                     categoriesLabel.textContent = 'Categories'
                     taskCategories.appendChild(categoriesLabel)
 
-                        const categoriesSelect = document.createElement('datalist')
-                        categoriesSelect.id = 'categories'
+
+                        const categoriesSelect = document.createElement('select')
+                        categoriesSelect.id = 'categories-select'
                         categoriesSelect.name = 'categories'
+                        categoriesSelect.list = 'categories'
                         taskCategories.appendChild(categoriesSelect)
 
-                        const allTasks = document.createElement('option')
-                        allTasks.value = 'all'
-                        allTasks.textContent = 'All tasks'
-                        categoriesSelect.appendChild(allTasks)
+                        const defaultCategory = document.createElement('option')
+                        defaultCategory.value = 'default'
+                        defaultCategory.textContent = 'Default'
+                        categoriesSelect.appendChild(defaultCategory)
+
+                        for (let i = 0; i < categoryDatabase.length; i++) {
+                            let category = categoryDatabase[i];
+                            let categoryOption = document.createElement('option');
+                            categoryOption.textContent = category.title;
+                            categoryOption.value = category.title;
+                            categoriesSelect.appendChild(categoryOption)
+                        }
 
 
                 const closeBtn = document.createElement('button')
@@ -246,10 +260,10 @@ function editTaskModal() {
                         categoriesSelect.name = 'categories'
                         taskCategories.appendChild(categoriesSelect)
 
-                        const allTasks = document.createElement('option')
-                        allTasks.value = 'all'
-                        allTasks.textContent = 'All tasks'
-                        categoriesSelect.appendChild(allTasks)
+                        const defaultCategory = document.createElement('option')
+                        defaultCategory.value = 'all'
+                        defaultCategory.textContent = 'All tasks'
+                        categoriesSelect.appendChild(defaultCategory)
 
 
                 const closeBtn = document.createElement('button')
