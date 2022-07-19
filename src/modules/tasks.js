@@ -3,6 +3,7 @@ import Delete from '../img/delete.png'
 import { remove } from 'lodash';
 import loadModals from './modal';
 import Task from './task-entry';
+import Chevron from '../img/chevron.png'
 
 
 let taskDatabase = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -63,6 +64,10 @@ function showTaskInfo() {
                     const taskTitle = document.createElement('div')
                     taskTitle.classList.add('task-left')
                     firstRow.appendChild(taskTitle)
+
+                        const taskArrow = new Image();
+                        taskArrow.src = Chevron;
+                        taskTitle.appendChild(taskArrow)
 
                         const doneTask = document.createElement('input')
                         doneTask.type = 'checkbox'
