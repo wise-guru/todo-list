@@ -7,7 +7,7 @@ function validateTaskForm(e) {
     const descInput = document.querySelector('#descInput')
     const dateInput = document.querySelector('#dateInput')
     const selectPriority = document.querySelector('#taskPriority')
-    const selectCategory = document.querySelector('#categories')
+    const selectCategory = document.querySelector('#categories-select')
 
     const categoryInput = document.querySelector('#categoryInput')
 
@@ -15,9 +15,6 @@ function validateTaskForm(e) {
 
     if (titleInput.value !== '') {
         addTask(titleInput.value, descInput.value, dateInput.value, selectPriority.value, selectCategory.value)
-        
-    }   else if (categoryInput !== '') {
-        addCategory(t)
     }
 
     else {
