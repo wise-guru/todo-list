@@ -116,9 +116,7 @@ function addTasksModal() {
                         taskCategories.appendChild(categoriesSelect)
 
                         const defaultCategory = document.createElement('option')
-                        defaultCategory.value = 'default'
-                        defaultCategory.textContent = 'Default'
-                        categoriesSelect.appendChild(defaultCategory)
+
 
                         for (let i = 0; i < categoryDatabase.length; i++) {
                             let category = categoryDatabase[i];
