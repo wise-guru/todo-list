@@ -4,10 +4,13 @@ import { remove } from 'lodash';
 import loadModals from './modal';
 import Task from './task-entry';
 import Chevron from '../img/chevron.png'
+import Category from './category-entry'
 
 
 let taskDatabase = JSON.parse(localStorage.getItem('tasks')) || [];
 
+
+console.log(taskDatabase.categories)
 
 
 function validateTaskForm() {
@@ -33,7 +36,61 @@ function addTask(title, description, date, priority, categories) {
     let task = new Task(title, description, date, priority, categories)
     taskDatabase.push(task);
     showTaskInfo(task);
+    // moveTasktoCategory(task);
+   
+    // categoryDatabase[0].tasks = Object.assign(categoryDatabase[0].tasks, task)
+    // console.log(categoryDatabase[0])
 }
+
+
+
+const getTask = (id) => {
+    const task = taskDatabase.filter((id) => task.id === id)
+    console.log(task)
+
+    return task;
+}
+
+const updateCategory = (id, categories) => {
+    const thisTask = getTask(id);
+    thisTask[categories].match
+}
+
+// function moveTasktoCategory(task) {
+    
+// // for (let i = 0;  i < categoryDatabase.length; i++) {
+// //     if(task.categories == categoryDatabase[i].title) {
+// //         categoryDatabase[i].tasks.push(task)
+// //     }
+// // }
+
+// function filterbyCategory(tar)
+
+// if(categoryDatabase.title.indexOf(task.categories) !== -1) {
+//     categoryDatabase.tasks.push(task)
+// }
+
+// }
+
+const filterbyCategory = (dataCategory) => {
+    const categoryTasks = document.querySelectorAll('.task-row');
+    const sidebarCategory = document.querySelectorAll('.sidebar-category')
+    Array.from(categoryTasks).forEach(categoryTask => {
+        categoryTask.style.display = 'none'
+        // if(!e.dataset.category.includes(categoryTask.dataset.category)) {
+        //     categoryTask.style.display = 'none';
+        // }
+        if(dataCategory === categoryTask.getAttribute('data-category')) {
+            categoryTask.style.display = 'grid';
+        }
+    })
+}
+
+
+
+
+
+
 
 function clearTasks() {
     const taskContainer = document.querySelector('#task-container');
@@ -50,35 +107,38 @@ function showTaskInfo() {
     localStorage.setItem('tasks', JSON.stringify(taskDatabase))
     clearTasks()
 
-            taskDatabase.forEach(task => {
-            
+            taskDatabase.forEach((task, i) => {
+            let category = task.categories;
+
             const taskRow = document.createElement('div')
             taskRow.classList.add('task-row')
-            taskRow.setAttribute("data-index", task)
+            taskRow.setAttribute("data-index", i + 1)
+            taskRow.setAttribute('data-category', category)
+            task.id = i + 1;
             taskContainer.appendChild(taskRow)
 
                 const firstRow = document.createElement('div')
                 taskRow.appendChild(firstRow)
                 firstRow.classList.add('first-row')
 
-                    const taskTitle = document.createElement('div')
-                    taskTitle.classList.add('task-left')
-                    firstRow.appendChild(taskTitle)
+                    const taskLeft = document.createElement('div')
+                    taskLeft.classList.add('task-left')
+                    firstRow.appendChild(taskLeft)
 
                         const taskArrow = new Image();
                         taskArrow.src = Chevron;
-                        taskTitle.appendChild(taskArrow)
+                        taskLeft.appendChild(taskArrow)
 
                         const doneTask = document.createElement('input')
                         doneTask.type = 'checkbox'
                         doneTask.name = 'done'
                         doneTask.id = 'done'
-                        taskTitle.appendChild(doneTask)
+                        taskLeft.appendChild(doneTask)
 
                         const taskLabel = document.createElement('label')
                         taskLabel.htmlFor = 'done'
                         taskLabel.textContent = task.title;
-                        taskTitle.appendChild(taskLabel)
+                        taskLeft.appendChild(taskLabel)
                 
                     const taskIcons = document.createElement('div')
                     taskIcons.classList.add('task-right')
@@ -113,7 +173,7 @@ function showTaskInfo() {
                     taskDate.textContent = (`Due date: ${task.date}`)
                     secondRow.appendChild(taskDate)
              })
-
+    // filterbyCategory()
                     
     return taskContainer;
 
@@ -156,12 +216,33 @@ function removeTask(e) {
     //     taskContainer.removeChild(selectedTask)
     //     localStorage.removeItem(selectedTask);
 
-    let task = taskDatabase.filter(t => t != task);
-    localStorage.setItem('tasks', JSON.stringify(taskDatabase))
-    showTaskInfo(task)
+    for (let i = 0; i < taskDatabase.length; i++) {
+        let taskDatabase = JSON.parse(taskDatabase[i]);
+        taskDatabase.splice(i, 1);
+        taskDatabase = JSON.stringify(taskDatabase)
+        localStorage.setItem('tasks', taskDatabase)
+        
+    }
   
 }
 
+// function filterTasksToCategory() {
+//     let taskRow = document.querySelectorAll('.task-row')
+
+//     taskDatabase.forEach((task) => {
+//         let category = task.categories
+
+//         if (category == Category.title) {
+//             Category.addTasktoCategory(task)
+//         }
+//     })
 
 
-export {addTask, validateTaskForm, showTaskInfo}
+
+
+
+// }
+
+
+
+export {addTask, validateTaskForm, showTaskInfo, filterbyCategory}
