@@ -1,11 +1,11 @@
 import Icon from './img/checkmark.png';
-import {loadPage} from './modules/home';
+import {loadPage} from './modules/pages';
 import HomeIcon from './img/home.png';
 import TodayIcon from './img/today.png';
 import WeekIcon from './img/week.png'
 import loadModals from './modules/modal';
-import {showTaskInfo} from './modules/tasks.js'
-import { showCategoryInfo } from './modules/categories';
+import {filterbyCategory, showTaskInfo} from './modules/tasks.js'
+import { showCategoryInfo as showSidebarCategories } from './modules/categories';
 
 function createHeader() {
     const header = document.createElement('div')
@@ -96,7 +96,6 @@ function createSidebar() {
         sidebarContent.appendChild(categoriesContainer);
         categoriesContainer.id = 'category-container';
         
-
         const addCategories = document.createElement('li')
         sidebarContent.appendChild(addCategories)
 
@@ -107,6 +106,8 @@ function createSidebar() {
             addCategoriesBtn.addEventListener('click', function(e) {
                 loadModals('category')
             })
+
+        
 
     return sidebar;
 }
@@ -138,7 +139,7 @@ function initializeWebsite() {
     container.appendChild(createMain())
     container.appendChild(createFooter())
 
-    showCategoryInfo();
+    showSidebarCategories();
     loadPage('home');
     showTaskInfo();
 }
