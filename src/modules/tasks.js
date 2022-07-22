@@ -5,12 +5,13 @@ import loadModals from './modal';
 import Task from './task-entry';
 import Chevron from '../img/chevron.png'
 import Category from './category-entry'
+import { isThisWeek, isToday } from 'date-fns';
 
 
 let taskDatabase = JSON.parse(localStorage.getItem('tasks')) || [];
 
+console.log(isToday(new Date()))
 
-console.log(taskDatabase.categories)
 
 
 function validateTaskForm() {
@@ -36,10 +37,6 @@ function addTask(title, description, date, priority, categories) {
     let task = new Task(title, description, date, priority, categories)
     taskDatabase.push(task);
     showTaskInfo(task);
-    // moveTasktoCategory(task);
-   
-    // categoryDatabase[0].tasks = Object.assign(categoryDatabase[0].tasks, task)
-    // console.log(categoryDatabase[0])
 }
 
 
@@ -50,43 +47,6 @@ const getTask = (id) => {
 
     return task;
 }
-
-const updateCategory = (id, categories) => {
-    const thisTask = getTask(id);
-    thisTask[categories].match
-}
-
-// function moveTasktoCategory(task) {
-    
-// // for (let i = 0;  i < categoryDatabase.length; i++) {
-// //     if(task.categories == categoryDatabase[i].title) {
-// //         categoryDatabase[i].tasks.push(task)
-// //     }
-// // }
-
-// function filterbyCategory(tar)
-
-// if(categoryDatabase.title.indexOf(task.categories) !== -1) {
-//     categoryDatabase.tasks.push(task)
-// }
-
-// }
-
-const filterbyCategory = (dataCategory) => {
-    const categoryTasks = document.querySelectorAll('.task-row');
-    const sidebarCategory = document.querySelectorAll('.sidebar-category')
-    Array.from(categoryTasks).forEach(categoryTask => {
-        categoryTask.style.display = 'none'
-        // if(!e.dataset.category.includes(categoryTask.dataset.category)) {
-        //     categoryTask.style.display = 'none';
-        // }
-        if(dataCategory === categoryTask.getAttribute('data-category')) {
-            categoryTask.style.display = 'grid';
-        }
-    })
-}
-
-
 
 
 
@@ -108,12 +68,12 @@ function showTaskInfo() {
     clearTasks()
 
             taskDatabase.forEach((task, i) => {
-            let category = task.categories;
-
+       
             const taskRow = document.createElement('div')
             taskRow.classList.add('task-row')
             taskRow.setAttribute("data-index", i + 1)
-            taskRow.setAttribute('data-category', category)
+            taskRow.setAttribute('data-category', task.categories)
+            taskRow.setAttribute('data-date', task.date)
             task.id = i + 1;
             taskContainer.appendChild(taskRow)
 
@@ -201,48 +161,97 @@ function editTask(task) {
 
     let selectedTask = task.target.parentNode.parentNode.parentNode;
     let selectedIndex = selectedTask.getAttribute("data-index")
-    taskDatabase.splice([selectedIndex])
+    // taskDatabase.splice([selectedIndex])
     let taskTitle = selectedIndex.title;
 
-    titleInput.value = taskTitle; 
+
+    for (let i = 0; i < taskDatabase.length; i++) {
+        if (taskDatabase[i].id == selectedIndex) {
+          
+            titleInput.value = taskDatabase[i].title;
+
+
+
+            localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+            }
+    }
 }
 
 
 function removeTask(e) {
-    // const taskContainer = document.querySelector('#task-container')
-    //     let selectedTask = e.target.parentNode.parentNode.parentNode;
-    //     let selectedIndex = selectedTask.getAttribute("data-index") 
-    //     taskDatabase.splice([selectedIndex])
-    //     taskContainer.removeChild(selectedTask)
-    //     localStorage.removeItem(selectedTask);
+    const taskContainer = document.querySelector('#task-container')
+        let selectedTask = e.target.parentNode.parentNode.parentNode;
+        let selectedIndex = selectedTask.getAttribute("data-index") 
+        taskDatabase.splice([selectedIndex])
+        taskContainer.removeChild(selectedTask)
+
 
     for (let i = 0; i < taskDatabase.length; i++) {
-        let taskDatabase = JSON.parse(taskDatabase[i]);
-        taskDatabase.splice(i, 1);
-        taskDatabase = JSON.stringify(taskDatabase)
-        localStorage.setItem('tasks', taskDatabase)
-        
+        if (taskDatabase[i].id == selectedIndex) {
+            taskDatabase.splice(i, 1);
+            localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+            }
     }
-  
+    const categoryTasks = document.querySelectorAll('.task-row');
 }
 
-// function filterTasksToCategory() {
-//     let taskRow = document.querySelectorAll('.task-row')
 
-//     taskDatabase.forEach((task) => {
-//         let category = task.categories
+const filterbyCategory = (dataCategory) => {
+    const categoryTasks = document.querySelectorAll('.task-row');
+    const sidebarCategory = document.querySelectorAll('.sidebar-category')
+    Array.from(categoryTasks).forEach(categoryTask => {
+        categoryTask.style.display = 'none';
 
-//         if (category == Category.title) {
-//             Category.addTasktoCategory(task)
-//         }
-//     })
+ 
+        if(dataCategory === categoryTask.getAttribute('data-category')) {
+            categoryTask.style.display = 'grid';
+        }
+    })
+}
+
+const filterbyTodaysDate = () => {
+    const categoryTasks = document.querySelectorAll('.task-row');
+
+    
+
+    var dateObj = new Date();
+    var month = dateObj.getMonth() + 1; //months from 1-12
+    var day = dateObj.getDate();
+    var year = dateObj.getFullYear();
+    let newDate = year + "-" + "0" + month + "-" + day;
+
+    Array.from(categoryTasks).forEach(categoryTask => {
+        let dataDate = categoryTask.getAttribute('data-date');
+        categoryTask.style.display = 'none';
+
+
+        if(newDate == dataDate) {
+            categoryTask.style.display = 'grid';
+        }
+
+    })
+
+}
+
+const filterByThisWeek = () => {
+    const categoryTasks = document.querySelectorAll('.task-row')
+
+    Array.from(categoryTasks).forEach(categoryTask => {
+        let dataDate = categoryTask.getAttribute('data-date');
+        categoryTask.style.display = 'none';
+
+        let thisWeek = isThisWeek(new Date(dataDate))
+
+        console.log(thisWeek)
+
+
+        if(thisWeek) {
+            categoryTask.style.display = 'grid';
+        }
+
+    })
+}
 
 
 
-
-
-// }
-
-
-
-export {addTask, validateTaskForm, showTaskInfo, filterbyCategory}
+export {addTask, validateTaskForm, showTaskInfo, filterbyCategory, filterbyTodaysDate, filterByThisWeek}
