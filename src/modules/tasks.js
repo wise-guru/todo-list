@@ -6,6 +6,7 @@ import Task from './task-entry';
 import Chevron from '../img/chevron.png'
 import Category from './category-entry'
 import { isThisWeek, isToday } from 'date-fns';
+import {validateEditTaskForm} from './validate-form'
 
 
 let taskDatabase = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -141,23 +142,26 @@ function showTaskInfo() {
 }
 
 function editTask(task) {
-    // const taskContainer = document.querySelector('#task-container')
-
-    // const span = li.firstElementChild;
-    // const input = document.createElement('input');
-    // input.type = 'text';
-    // input.value = span.textContent;
-    // li.insertBefore(input, span);
-    // li.removeChild(span);
-    // button.textContent = 'save';
-
-    loadModals('task')
+    loadModals('edit')
     // let task = Storage.getTaskDatabase().getCategory().getTaskfromDatabase(taskTitle)
     const titleInput = document.querySelector('#titleInput')
     const descInput = document.querySelector('#descInput')
     const dateInput = document.querySelector('#dateInput')
     const selectPriority = document.querySelector('#taskPriority')
-    const selectCategory = document.querySelector('#categories')
+    const selectCategory = document.querySelector('#categories-select')
+    const addTaskBtn = document.querySelector('#addTaskBtn')
+    const modalContent = document.querySelector('.modal-content')
+
+    addTaskBtn.remove()
+    const saveTaskBtn = document.createElement('button')
+    saveTaskBtn.classList.add('task-btn')
+    saveTaskBtn.id = 'saveTaskBtn'
+    saveTaskBtn.textContent = 'Save Task'
+    modalContent. appendChild(saveTaskBtn)
+
+        saveTaskBtn.addEventListener('click', function(e) {
+            validateEditTaskForm(e, selectedIndex)
+        })
 
     let selectedTask = task.target.parentNode.parentNode.parentNode;
     let selectedIndex = selectedTask.getAttribute("data-index")
@@ -169,11 +173,26 @@ function editTask(task) {
         if (taskDatabase[i].id == selectedIndex) {
           
             titleInput.value = taskDatabase[i].title;
-
-
-
-            localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+            descInput.value = taskDatabase[i].description;
+            dateInput.value = taskDatabase[i].date;
+            selectPriority.value = taskDatabase[i].priority;
+            selectCategory.value = taskDatabase[i].categories;
             }
+    }
+}
+
+function saveEditedTask(title, description, date, priority, categories, selectedIndex) {
+
+    let updatedTask = new Task(title, description, date, priority, categories)
+    console.log(updatedTask)
+
+    for(let i = 0; i < taskDatabase.length; i++) {
+        if(taskDatabase[i].id == selectedIndex ) {
+            taskDatabase[i] = updatedTask;
+           
+        }
+
+        localStorage.setItem('tasks', JSON.stringify(taskDatabase))
     }
 }
 
@@ -242,7 +261,6 @@ const filterByThisWeek = () => {
 
         let thisWeek = isThisWeek(new Date(dataDate))
 
-        console.log(thisWeek)
 
 
         if(thisWeek) {
@@ -254,4 +272,4 @@ const filterByThisWeek = () => {
 
 
 
-export {addTask, validateTaskForm, showTaskInfo, filterbyCategory, filterbyTodaysDate, filterByThisWeek}
+export {addTask, validateTaskForm, showTaskInfo, filterbyCategory, filterbyTodaysDate, filterByThisWeek, saveEditedTask}
