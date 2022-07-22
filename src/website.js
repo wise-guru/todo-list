@@ -4,8 +4,9 @@ import HomeIcon from './img/home.png';
 import TodayIcon from './img/today.png';
 import WeekIcon from './img/week.png'
 import loadModals from './modules/modal';
-import {filterbyCategory, showTaskInfo} from './modules/tasks.js'
+import {filterByThisWeek, filterbyTodaysDate, showTaskInfo} from './modules/tasks.js'
 import { showCategoryInfo as showSidebarCategories } from './modules/categories';
+import { isToday } from 'date-fns';
 
 function createHeader() {
     const header = document.createElement('div')
@@ -66,6 +67,9 @@ function createSidebar() {
 
             today.addEventListener('click', function(e) {
                 loadPage('today')
+                showTaskInfo()
+                filterbyTodaysDate()
+
             })
 
         
@@ -83,6 +87,8 @@ function createSidebar() {
 
             week.addEventListener('click', function(e) {
                 loadPage('week')
+                showTaskInfo()
+                filterByThisWeek();
             })
         
   
