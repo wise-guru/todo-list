@@ -101,6 +101,6 @@ li {
 
 .task-left, .task-right {
     display: flex;
+    align-items: center;
 }
-
 
