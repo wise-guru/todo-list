@@ -9,9 +9,39 @@ import { showCategoryInfo as showSidebarCategories } from './modules/categories'
 import { isToday } from 'date-fns';
 
 function createHeader() {
+   
     const header = document.createElement('div')
     header.classList.add('header')
-    header.textContent = 'Placeholder'
+    header.textContent;
+
+    const greeting = document.createElement('div')
+    greeting.classList.add('greeting')
+    header.appendChild(greeting)
+
+        const greetingText = document.createElement('h2')
+        greetingText.classList.add('title')
+        greetingText.textContent = `Hello,`
+        greeting.appendChild(greetingText)
+
+        const greetingInput = document.createElement('input')
+        greetingInput.classList.add('greeting-input')
+        greetingInput.id = 'name'
+        greetingInput.placeholder = 'Name here'
+        greetingText.appendChild(greetingInput);
+
+        const username = localStorage.getItem('username') || '';
+        greetingInput.value = username;
+
+        greetingInput.addEventListener('change', function(e) {
+            localStorage.setItem('username', e.target.value)
+        })
+
+
+
+
+
+
+
 
     return header;
 }
