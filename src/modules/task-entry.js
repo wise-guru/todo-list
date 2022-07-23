@@ -7,7 +7,7 @@ export default class Task {
         this.priority = priority;
         this.categories = categories;
         this.id = id;
-        this.isCompleted = isCompleted;
+        this.isCompleted = false;
     }
 }
 
