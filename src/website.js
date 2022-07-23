@@ -1,10 +1,11 @@
-import Icon from './img/checkmark.png';
+import Notebook from './img/notebook.png'
+import CheckMark from './img/checkmark.png';
 import {loadPage} from './modules/pages';
 import HomeIcon from './img/home.png';
 import TodayIcon from './img/today.png';
 import WeekIcon from './img/week.png'
 import loadModals from './modules/modal';
-import {filterByThisWeek, filterbyTodaysDate, showTaskInfo} from './modules/tasks.js'
+import {filterByThisWeek, filterbyTodaysDate, showTaskInfo, filterByCompleted, filterbyNotCompleted} from './modules/tasks.js'
 import { showCategoryInfo as showSidebarCategories } from './modules/categories';
 import { isToday } from 'date-fns';
 
@@ -36,13 +37,6 @@ function createHeader() {
             localStorage.setItem('username', e.target.value)
         })
 
-
-
-
-
-
-
-
     return header;
 }
 
@@ -58,14 +52,19 @@ function createSidebar() {
         sidebarTitle.classList.add('title')
         sidebarContent.appendChild(sidebarTitle)
 
-            const checkmark = document.createElement('input') 
-            checkmark.type = 'image'
-            checkmark.src = Icon
-            sidebarTitle.appendChild(checkmark)
+            const notebook = document.createElement('input') 
+            notebook.type = 'image';
+            notebook.src = Notebook;
+            sidebarTitle.appendChild(notebook);
 
             const titleText = document.createElement('p')
             titleText.textContent = 'To Dooley'
             sidebarTitle.appendChild(titleText)
+
+            sidebarTitle.addEventListener('click', function(e) {
+                loadPage('allTasks')
+                showTaskInfo()
+            })
         
         const home = document.createElement('li');
         home.classList.add('menu')
@@ -120,9 +119,26 @@ function createSidebar() {
                 showTaskInfo()
                 filterByThisWeek();
             })
+
+        const completedTasks = document.createElement('li');
+        completedTasks.classList.add('menu')
+        sidebarContent.appendChild(completedTasks)
+
+            const completedTasksImg = new Image()
+            completedTasksImg.src = CheckMark;
+            completedTasks.appendChild(completedTasksImg)
+
+            const completedTasksText = document.createElement('p')
+            completedTasksText.textContent = 'Completed'
+            completedTasks.appendChild(completedTasksText)
+
+            completedTasks.addEventListener('click', function(e) {
+                loadPage('completed')
+                showTaskInfo()
+                filterByCompleted()
+            })
         
   
-
         const categoriesTitle = document.createElement('li')
         categoriesTitle.classList.add('categories')
         categoriesTitle.textContent = 'Categories'
@@ -178,6 +194,7 @@ function initializeWebsite() {
     showSidebarCategories();
     loadPage('home');
     showTaskInfo();
+    filterbyNotCompleted();
 }
 
 initializeWebsite()
