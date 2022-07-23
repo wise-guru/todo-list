@@ -2,12 +2,37 @@ import { showCategoryPage } from "./categories.js"
 import loadModals from "./modal.js"
 import { showTaskInfo } from "./tasks.js"
 
+
+function showAllTasks() {
+    const allTasksContent = document.createElement('div')
+    allTasksContent.classList.add('home-content')
+
+    const allTasksTitle = document.createElement('h1')
+    allTasksTitle.textContent = 'All Tasks'
+    allTasksContent.appendChild(allTasksTitle)
+
+    const addTaskBtn = document.createElement('button')
+    addTaskBtn.textContent = "Add Task +"
+    allTasksContent.appendChild(addTaskBtn)
+
+    addTaskBtn.addEventListener('click', function(e) {
+        loadModals('task')
+    })
+
+    const taskContainer = document.createElement('div')
+    taskContainer.classList.add('task-container')
+    taskContainer.id = 'task-container'
+    allTasksContent.appendChild(taskContainer)
+
+    return allTasksContent
+}
+
 function showHome() {
     const homeContent = document.createElement('div')
     homeContent.classList.add('home-content')
 
     const homeTitle = document.createElement('h1')
-    homeTitle.textContent = 'All Tasks'
+    homeTitle.textContent = 'Home'
     homeContent.appendChild(homeTitle)
 
     const addTaskBtn = document.createElement('button')
@@ -60,14 +85,13 @@ function showThisWeek() {
 }
 
 
-
-
-
 function loadPage(e) {
     const main = document.querySelector('#main');
     main.textContent = '';
 
-    if (e === 'home') {
+    if (e === 'allTasks') {
+        main.appendChild(showAllTasks())
+    }   else if (e === 'home') {
         main.appendChild(showHome());
         showTaskInfo
     }   else if (e === 'today') {
