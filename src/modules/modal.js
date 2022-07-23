@@ -45,20 +45,22 @@ function addTasksModal() {
 
                 const taskDescription = document.createElement('div')
                 taskDescription.classList.add('field')
-                modalContent.appendChild(taskDescription)
+                taskForm.appendChild(taskDescription)
 
                     const descriptionLabel = document.createElement('label')
-                    descriptionLabel.htmlFor = 'descInput'
+                    descriptionLabel.htmlFor = 'description'
                     descriptionLabel.textContent = 'Description:'
                     taskDescription.appendChild(descriptionLabel)
 
-                    const descriptionInput = document.createElement('input')
-                    descriptionInput.id = 'descInput'
+                    const descriptionInput = document.createElement('textarea')
+                    descriptionInput.id = 'description'
+                    descriptionInput.name = 'description'
+                    descriptionInput.rows = 5;
                     taskDescription.appendChild(descriptionInput)
                 
                 const taskDate = document.createElement('div')
                 taskDate.classList.add('field')
-                modalContent.appendChild(taskDate)
+                taskForm.appendChild(taskDate)
 
                     const dateLabel = document.createElement('label')
                     dateLabel.htmlFor = 'dateInput'
@@ -72,7 +74,7 @@ function addTasksModal() {
                 
                 const taskPriority = document.createElement('div')
                 taskPriority.classList.add('field')
-                modalContent.appendChild(taskPriority)
+                taskForm.appendChild(taskPriority)
 
                    const priorityLabel = document.createElement('label')
                    priorityLabel.htmlFor = 'taskPriority'
@@ -101,7 +103,7 @@ function addTasksModal() {
 
                 const taskCategories = document.createElement('div')
                 taskCategories.classList.add('field')
-                modalContent.appendChild(taskCategories)
+                taskForm.appendChild(taskCategories)
 
                     const categoriesLabel = document.createElement('label')
                     categoriesLabel.htmlFor = 'categories-select'
@@ -115,7 +117,6 @@ function addTasksModal() {
                         categoriesSelect.list = 'categories'
                         taskCategories.appendChild(categoriesSelect)
 
-                        const defaultCategory = document.createElement('option')
 
 
                         for (let i = 0; i < categoryDatabase.length; i++) {
@@ -135,7 +136,6 @@ function addTasksModal() {
                     closeBtn.addEventListener('click', function(e) {
                         closeModal(e)
                     })
-
                     
                 const addTaskBtn = document.createElement('button')
                 addTaskBtn.classList.add('task-btn')
