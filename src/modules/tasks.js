@@ -11,28 +11,6 @@ import {validateEditTaskForm} from './validate-form'
 
 let taskDatabase = JSON.parse(localStorage.getItem('tasks')) || [];
 
-console.log(isToday(new Date()))
-
-
-
-function validateTaskForm() {
-    const titleInput = document.querySelector('#titleInput')
-    const descInput = document.querySelector('#descInput')
-    const dateInput = document.querySelector('#dateInput')
-    const selectPriority = document.querySelector('#taskPriority')
-    const selectCategory = document.querySelector('#categories')
-
-    this.preventDefault()
-
-    if (titleInput.value !== '') {
-        addTask(titleInput.value, descInput.value, dateInput.value, selectPriority.value, selectCategory.value)
-        
-    }
-    else {
-        return;
-    }
-}
-
 
 function addTask(title, description, date, priority, categories) {
     let task = new Task(title, description, date, priority, categories)
@@ -94,7 +72,12 @@ function showTaskInfo() {
                         doneTask.type = 'checkbox'
                         doneTask.name = 'done'
                         doneTask.id = 'done'
+                        doneTask.checked = task.isCompleted;
                         taskLeft.appendChild(doneTask)
+
+                            doneTask.addEventListener('click', function(e) {
+                                saveCompletedTasks(e);
+                            })
 
                         const taskLabel = document.createElement('label')
                         taskLabel.htmlFor = 'done'
@@ -196,6 +179,31 @@ function saveEditedTask(title, description, date, priority, categories, selected
     }
 }
 
+function saveCompletedTasks(e) {
+    let selectedTask = e.target.parentNode.parentNode.parentNode;
+    let selectedIndex = selectedTask.getAttribute("data-index")
+    const categoryTasks = document.querySelectorAll('.task-row');
+
+
+    Array.from(categoryTasks).forEach(categoryTask => {
+      
+
+        for(let i = 0; i < taskDatabase.length; i++) {
+            
+            if(taskDatabase[i].id == selectedIndex) {
+                taskDatabase[i].isCompleted = categoryTask.querySelector('#done').checked
+               
+            }
+    
+            localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+        }
+
+    })
+
+}
+
+
+
 
 function removeTask(e) {
     const taskContainer = document.querySelector('#task-container')
@@ -215,14 +223,18 @@ function removeTask(e) {
 }
 
 
+
+
 const filterbyCategory = (dataCategory) => {
     const categoryTasks = document.querySelectorAll('.task-row');
     const sidebarCategory = document.querySelectorAll('.sidebar-category')
+
     Array.from(categoryTasks).forEach(categoryTask => {
         categoryTask.style.display = 'none';
 
  
-        if(dataCategory === categoryTask.getAttribute('data-category')) {
+        if((dataCategory === categoryTask.getAttribute('data-category')) &&
+         (!categoryTask.querySelector('#done').checked)) {
             categoryTask.style.display = 'grid';
         }
     })
@@ -244,7 +256,7 @@ const filterbyTodaysDate = () => {
         categoryTask.style.display = 'none';
 
 
-        if(newDate == dataDate) {
+        if(newDate == dataDate && (!categoryTask.querySelector('#done').checked)) {
             categoryTask.style.display = 'grid';
         }
 
@@ -263,13 +275,39 @@ const filterByThisWeek = () => {
 
 
 
-        if(thisWeek) {
+        if(thisWeek && (!categoryTask.querySelector('#done').checked)) {
             categoryTask.style.display = 'grid';
         }
 
     })
 }
 
+const filterByCompleted = () => {
+    const categoryTasks = document.querySelectorAll('.task-row')
+
+    Array.from(categoryTasks).forEach(categoryTask => {
+       
+        categoryTask.style.display = 'none';
+
+        if(categoryTask.querySelector('#done').checked) {
+            categoryTask.style.display = 'grid';
+        }
+    })
+}
+
+const filterbyNotCompleted = () => {
+    const categoryTasks = document.querySelectorAll('.task-row')
+
+    Array.from(categoryTasks).forEach(categoryTask => {
+       
+        categoryTask.style.display = 'none';
+
+        if(!categoryTask.querySelector('#done').checked) {
+            categoryTask.style.display = 'grid';
+        }
+    })
+}
 
 
-export {addTask, validateTaskForm, showTaskInfo, filterbyCategory, filterbyTodaysDate, filterByThisWeek, saveEditedTask}
+
+export {addTask, showTaskInfo, filterbyCategory, filterByCompleted, filterbyNotCompleted, filterbyTodaysDate, filterByThisWeek, saveEditedTask}
