@@ -79,7 +79,9 @@ function createSidebar() {
             home.appendChild(homeText)
 
             home.addEventListener('click', function(e) {
-                initializeWebsite();
+                loadPage('home');
+                showTaskInfo();
+                filterbyNotCompleted();
             })
 
         const today = document.createElement('li')
