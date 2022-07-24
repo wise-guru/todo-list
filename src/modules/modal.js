@@ -30,108 +30,119 @@ function addTasksModal() {
             taskForm.classList.add('task-form')
             modalContent.appendChild(taskForm)
 
-                const taskTitle = document.createElement('div')
-                taskTitle.classList.add('field')
-                taskForm.appendChild(taskTitle)
+                const leftFields = document.createElement('div')
+                leftFields.classList.add('left-fields')
+                taskForm.appendChild(leftFields)
 
-                    const titleLabel = document.createElement('label')
-                    titleLabel.htmlFor = 'titleInput'
-                    titleLabel.textContent = 'Title:'
-                    taskTitle.appendChild(titleLabel)
 
-                    const titleInput = document.createElement('input')
-                    titleInput.id = 'titleInput'
-                    taskTitle.appendChild(titleInput)
+                    const taskTitle = document.createElement('div')
+                    taskTitle.classList.add('left', 'field')
+                    leftFields.appendChild(taskTitle)
 
-                const taskDescription = document.createElement('div')
-                taskDescription.classList.add('field')
-                taskForm.appendChild(taskDescription)
+                        const titleLabel = document.createElement('label')
+                        titleLabel.htmlFor = 'titleInput'
+                        titleLabel.textContent = 'Title:'
+                        taskTitle.appendChild(titleLabel)
 
-                    const descriptionLabel = document.createElement('label')
-                    descriptionLabel.htmlFor = 'description'
-                    descriptionLabel.textContent = 'Description:'
-                    taskDescription.appendChild(descriptionLabel)
+                        const titleInput = document.createElement('input')
+                        titleInput.id = 'titleInput'
+                        taskTitle.appendChild(titleInput)
 
-                    const descriptionInput = document.createElement('textarea')
-                    descriptionInput.id = 'description'
-                    descriptionInput.name = 'description'
-                    descriptionInput.rows = 5;
-                    taskDescription.appendChild(descriptionInput)
+                    const taskDescription = document.createElement('div')
+                    taskDescription.classList.add('left', 'field')
+                    leftFields.appendChild(taskDescription)
+
+                        const descriptionLabel = document.createElement('label')
+                        descriptionLabel.htmlFor = 'description'
+                        descriptionLabel.textContent = 'Description:'
+                        taskDescription.appendChild(descriptionLabel)
+
+                        const descriptionInput = document.createElement('textarea')
+                        descriptionInput.id = 'description'
+                        descriptionInput.name = 'description'
+                        descriptionInput.rows = 5;
+                        taskDescription.appendChild(descriptionInput)
                 
-                const taskDate = document.createElement('div')
-                taskDate.classList.add('field')
-                taskForm.appendChild(taskDate)
-
-                    const dateLabel = document.createElement('label')
-                    dateLabel.htmlFor = 'dateInput'
-                    dateLabel.textContent = 'Date:'
-                    taskDate.appendChild(dateLabel)
-
-                    const dateInput = document.createElement('input')
-                    dateInput.type = 'date'
-                    dateInput.id = 'dateInput'
-                    taskDate.appendChild(dateInput)
+                const rightFields = document.createElement('div')
+                rightFields.classList.add('right-fields')
+                taskForm.appendChild(rightFields)
                 
-                const taskPriority = document.createElement('div')
-                taskPriority.classList.add('field')
-                taskForm.appendChild(taskPriority)
+                    const taskDate = document.createElement('div')
+                    taskDate.classList.add('right', 'field')
+                    rightFields.appendChild(taskDate)
 
-                   const priorityLabel = document.createElement('label')
-                   priorityLabel.htmlFor = 'taskPriority'
-                   priorityLabel.textContent = 'Priority'
-                   taskPriority.appendChild(priorityLabel)
+                        const dateLabel = document.createElement('label')
+                        dateLabel.htmlFor = 'dateInput'
+                        dateLabel.textContent = 'Date:'
+                        taskDate.appendChild(dateLabel)
 
-                   const prioritySelect = document.createElement('select')
-                   prioritySelect.id = 'taskPriority'
-                   prioritySelect.name = 'priority'
-                   taskPriority.appendChild(prioritySelect)
+                        const dateInput = document.createElement('input')
+                        dateInput.type = 'date'
+                        dateInput.id = 'dateInput'
+                        taskDate.appendChild(dateInput)
+                    
+                    const taskPriority = document.createElement('div')
+                    taskPriority.classList.add('right', 'field')
+                    rightFields.appendChild(taskPriority)
 
-                        const priorityLow = document.createElement('option')
-                        priorityLow.value = 'low'
-                        priorityLow.textContent = 'Low'
-                        prioritySelect.appendChild(priorityLow)
+                        const priorityLabel = document.createElement('label')
+                        priorityLabel.htmlFor = 'taskPriority'
+                        priorityLabel.textContent = 'Priority'
+                        taskPriority.appendChild(priorityLabel)
 
-                        const pMed = document.createElement('option')
-                        pMed.value = 'medium'
-                        pMed.textContent = 'Medium'
-                        prioritySelect.appendChild(pMed)
+                        const prioritySelect = document.createElement('select')
+                        prioritySelect.id = 'taskPriority'
+                        prioritySelect.name = 'priority'
+                        taskPriority.appendChild(prioritySelect)
 
-                        const pHigh = document.createElement('option')
-                        pHigh.value = 'High'
-                        pHigh.textContent = 'High'
-                        prioritySelect.appendChild(pHigh)
+                                const priorityLow = document.createElement('option')
+                                priorityLow.value = 'low'
+                                priorityLow.textContent = 'Low'
+                                prioritySelect.appendChild(priorityLow)
 
-                const taskCategories = document.createElement('div')
-                taskCategories.classList.add('field')
-                taskForm.appendChild(taskCategories)
+                                const pMed = document.createElement('option')
+                                pMed.value = 'medium'
+                                pMed.textContent = 'Medium'
+                                prioritySelect.appendChild(pMed)
 
-                    const categoriesLabel = document.createElement('label')
-                    categoriesLabel.htmlFor = 'categories-select'
-                    categoriesLabel.textContent = 'Categories'
-                    taskCategories.appendChild(categoriesLabel)
+                                const pHigh = document.createElement('option')
+                                pHigh.value = 'High'
+                                pHigh.textContent = 'High'
+                                prioritySelect.appendChild(pHigh)
+
+                    const taskCategories = document.createElement('div')
+                    taskCategories.classList.add('right', 'field')
+                    rightFields.appendChild(taskCategories)
+
+                        const categoriesLabel = document.createElement('label')
+                        categoriesLabel.htmlFor = 'categories-select'
+                        categoriesLabel.textContent = 'Categories'
+                        taskCategories.appendChild(categoriesLabel)
 
 
-                        const categoriesSelect = document.createElement('select')
-                        categoriesSelect.id = 'categories-select'
-                        categoriesSelect.name = 'categories'
-                        categoriesSelect.list = 'categories'
-                        taskCategories.appendChild(categoriesSelect)
+                            const categoriesSelect = document.createElement('select')
+                            categoriesSelect.id = 'categories-select'
+                            categoriesSelect.name = 'categories'
+                            categoriesSelect.list = 'categories'
+                            taskCategories.appendChild(categoriesSelect)
 
+                            for (let i = 0; i < categoryDatabase.length; i++) {
+                                let category = categoryDatabase[i];
+                                let categoryOption = document.createElement('option');
+                                categoryOption.textContent = category.title;
+                                categoryOption.value = category.title;
+                                categoriesSelect.appendChild(categoryOption)
+                            }
 
-
-                        for (let i = 0; i < categoryDatabase.length; i++) {
-                            let category = categoryDatabase[i];
-                            let categoryOption = document.createElement('option');
-                            categoryOption.textContent = category.title;
-                            categoryOption.value = category.title;
-                            categoriesSelect.appendChild(categoryOption)
-                        }
+                const buttons = document.createElement('div')
+                buttons.classList.add('task-btns')
+                modalContent.appendChild(buttons)
 
 
                 const closeBtn = document.createElement('button')
-                closeBtn.classList.add('close-btn', 'task-btn')
+                closeBtn.classList.add('close-btn')
                 closeBtn.textContent = 'close'
-                modalContent.appendChild(closeBtn)
+                buttons.appendChild(closeBtn)
 
                     closeBtn.addEventListener('click', function(e) {
                         closeModal(e)
@@ -141,7 +152,7 @@ function addTasksModal() {
                 addTaskBtn.classList.add('task-btn')
                 addTaskBtn.id = 'addTaskBtn'
                 addTaskBtn.textContent = 'Add Task'
-                modalContent. appendChild(addTaskBtn)
+                buttons. appendChild(addTaskBtn)
 
                     addTaskBtn.addEventListener('click', function(e) {
                         validateTaskForm(e)
@@ -155,7 +166,7 @@ function addCategoriesModal() {
     categoryModal.classList.add('bg-modal')
 
         const modalContent = document.createElement('div')
-        modalContent.classList.add('modal-content')
+        modalContent.classList.add('cg', 'modal-content')
         categoryModal.appendChild(modalContent)
 
             const xBtn = document.createElement('div')
@@ -173,40 +184,48 @@ function addCategoriesModal() {
 
 
             const categoryForm = document.createElement('form')
-            categoryForm.classList.add('task-form')
+            categoryForm.classList.add('category-form')
             modalContent.appendChild(categoryForm)
 
+                const fieldContainer = document.createElement('div')
+                fieldContainer.classList.add('cg', 'field-container')
+                categoryForm.appendChild(fieldContainer)
+
                 const categoryTitle = document.createElement('div')
-                categoryTitle.classList.add('field')
-                categoryForm.appendChild(categoryTitle)
+                categoryTitle.classList.add('cg', 'field')
+                fieldContainer.appendChild(categoryTitle)
 
                     const categoryLabel = document.createElement('label')
                     categoryLabel.htmlFor = 'categoryInput'
-                    categoryLabel.textContent = 'Title:'
+                    categoryLabel.textContent = 'Title'
                     categoryTitle.appendChild(categoryLabel)
 
                     const categoryInput = document.createElement('input')
                     categoryInput.id = 'categoryInput'
                     categoryTitle.appendChild(categoryInput)
 
-                     const closeBtn = document.createElement('button')
-                closeBtn.classList.add('close-btn', 'task-btn')
-                closeBtn.textContent = 'close'
-                modalContent.appendChild(closeBtn)
+                const buttons = document.createElement('div')
+                buttons.classList.add( 'cg', 'task-btns')
+                modalContent.appendChild(buttons)
 
-                    closeBtn.addEventListener('click', function(e) {
-                        closeModal(e)
-                    })
+                    const closeBtn = document.createElement('button')
+                    closeBtn.classList.add('close-btn')
+                    closeBtn.textContent = 'close'
+                    buttons.appendChild(closeBtn)
 
-                    
-                const addCategoriesBtn = document.createElement('button')
-                addCategoriesBtn.classList.add('categories-btn')
-                addCategoriesBtn.textContent = 'Add Category'
-                modalContent.appendChild(addCategoriesBtn)
+                        closeBtn.addEventListener('click', function(e) {
+                            closeModal(e)
+                        })
 
-                    addCategoriesBtn.addEventListener('click', function(e) {
-                        validateCategoryForm(e)
-                    })
+                        
+                    const addCategoriesBtn = document.createElement('button')
+                    addCategoriesBtn.classList.add('task-btn')
+                    addCategoriesBtn.textContent = 'Add Category'
+                    buttons.appendChild(addCategoriesBtn)
+
+                        addCategoriesBtn.addEventListener('click', function(e) {
+                            validateCategoryForm(e)
+                        })
 
     return categoryModal
 }
