@@ -93,7 +93,6 @@ function loadPage(e) {
         main.appendChild(showAllTasks())
     }   else if (e === 'home') {
         main.appendChild(showHome());
-        showTaskInfo
     }   else if (e === 'today') {
         main.appendChild(showToday());
     }   else if (e === 'week') {
