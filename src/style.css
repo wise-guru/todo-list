@@ -15,7 +15,8 @@ body {
 .sidebar {
     color: white;
     font-weight: bold;
-    background-color: #334155;
+    background-color: #5b21b6;
+    ;
     display: grid;
     grid-template-rows: 1fr 4fr 2fr;
     grid-row: 1 / 5;
@@ -28,6 +29,30 @@ body {
     grid-template-columns: 2fr 1fr;
     background-color: #fff;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.15);
+}
+
+.greetingg {
+    display: flex;
+}
+
+.greeting input {
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+}
+
+.greeting .title input {
+	margin-left: 0.5rem;
+	flex: 1 1 0%;
+	min-width: 0;
+}
+
+.greeting .title, 
+.greeting .title input {
+	color: var(--dark);
+	font-size: 1.5rem;
+	font-weight: 700;
 }
 
 ul {
@@ -45,13 +70,21 @@ li {
     gap: 16px;
 }
 
+li.title:hover {
+    cursor: pointer;
+}
+
+li.title:active {
+    transform: scale(0.985);
+}
+
 .menu:hover {
-    background-color: #415269;
+    background-color:#6d2bd6;
     cursor: pointer;
 }
 
 .menu:active {
-    background-color: #2a3747;
+    background-color: #4f1d9e;
 }
 
 
@@ -74,7 +107,9 @@ li {
     border-radius: 4px;
     text-align: center;
     padding: 20px;
+    display: grid;
 }
+
 
 .x-btn {
     position: absolute;
@@ -87,6 +122,100 @@ li {
 
 .x-btn:hover {
     color: rgb(105, 100, 100);
+}
+
+.task-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+}
+
+.category-form {
+    display: grid;
+}
+
+.category-form .field {
+    justify-content: center;
+}
+
+form label, form input {
+    display:grid;
+    grid-auto-flow: column;
+}
+
+.left-fields {
+    display: grid;
+    grid-column: 1 / 2;
+    justify-content: center;
+}
+
+.right-fields {
+    display: grid;
+    grid-column: 2 / 3;
+    justify-content: center;
+}
+
+.task-form input, .task-form select, textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+} 
+
+.task-btns {
+    display: grid;
+    justify-content: end;
+    grid-auto-flow: column;
+    padding: 1rem;
+    gap: 4px;
+}
+
+.category-form {
+    display: grid;
+}
+
+
+.cg.modal-content {
+    grid-template-rows: 1fr 1fr 1fr;
+
+}
+
+.cg.field-container{
+    display: grid;
+    justify-content: center;
+}
+
+.cg input {
+    width: 20rem;
+    height: 1.5rem;
+}
+
+.cg.task-btns {
+    height: 50%;
+    justify-content: end;
+}
+
+.task-btn {
+    background-color: #5b21b6;
+    color: #fff;
+}
+
+.task-btn:hover {
+    background-color: #6d2bd6;
+}
+
+
+.modal-content button {
+    width: 5rem;
+    border-radius: 4px;
+}
+
+.close-btn {
+    border: grey solid 1px;
+}
+
+.modal-content button:hover {
+    cursor: pointer;
 }
 
 .task-row {
@@ -104,3 +233,6 @@ li {
     align-items: center;
 }
 
+.task-row.done label {
+text-decoration: line-through;
+}
