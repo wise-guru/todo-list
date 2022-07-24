@@ -72,11 +72,29 @@ function showTaskInfo() {
                         doneTask.type = 'checkbox'
                         doneTask.name = 'done'
                         doneTask.id = 'done'
+                        doneTask.classList.add('checkboxes')
+                        doneTask.setAttribute("data-checkbox", i + 1)
                         doneTask.checked = task.isCompleted;
                         taskLeft.appendChild(doneTask)
 
-                            doneTask.addEventListener('click', function(e) {
-                                saveCompletedTasks(e);
+                            // doneTask.addEventListener('click', function(e) {
+                            //     saveCompletedTasks(e);
+                            // })
+
+                            if (task.isCompleted) {
+                                taskRow.classList.add('done');
+                            }
+
+                            doneTask.addEventListener('change', function(e) {
+                                let done = e.target.checked
+
+                                if (done) {
+                                    taskRow.classList.add('done');
+                                }
+                                else {
+                                    taskRow.classList.remove('done');
+                                }
+                                saveCompletedTasks(e)
                             })
 
                         const taskLabel = document.createElement('label')
@@ -182,16 +200,20 @@ function saveEditedTask(title, description, date, priority, categories, selected
 function saveCompletedTasks(e) {
     let selectedTask = e.target.parentNode.parentNode.parentNode;
     let selectedIndex = selectedTask.getAttribute("data-index")
-    const categoryTasks = document.querySelectorAll('.task-row');
+    const checkboxes = document.querySelectorAll('.checkboxes');
+    
+
+    console.log(selectedIndex)
 
 
-    Array.from(categoryTasks).forEach(categoryTask => {
+    Array.from(checkboxes).forEach(checkbox=> {
+        const checkboxNum = checkbox.getAttribute("data-checkbox")
       
-
         for(let i = 0; i < taskDatabase.length; i++) {
             
-            if(taskDatabase[i].id == selectedIndex) {
-                taskDatabase[i].isCompleted = categoryTask.querySelector('#done').checked
+            if(taskDatabase[i].id == checkboxNum) {
+                taskDatabase[i].isCompleted = checkbox.checked;
+                console.log(checkbox.checked)
                
             }
     
