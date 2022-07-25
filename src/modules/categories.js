@@ -3,10 +3,9 @@ import Folder from '../img/folder.png';
 import { loadPage } from "./pages";
 import { filterbyCategory, showTaskInfo } from "./tasks";
 import _ from "lodash";
+import loadModals from "./modal";
 
 let categoryDatabase = JSON.parse(localStorage.getItem('categories')) || [];
-
-
 
 
 
@@ -67,10 +66,10 @@ function showCategoryInfo() {
         sidebarCategory.setAttribute('data-category', category.title);
         category.id = i + 100;
 
-        let dataCategory = sidebarCategory.getAttribute('data-category');
+  
         
         sidebarCategory.addEventListener('click', function(e) {
-             loadPage('category');
+             loadPage(e,'category');
              showTaskInfo()
 
             let dataCategory = sidebarCategory.getAttribute('data-category');
@@ -79,11 +78,13 @@ function showCategoryInfo() {
 
         const categoryImg = new Image()
         categoryImg.src = Folder;
+        categoryImg.setAttribute('data-category', category.title);
         sidebarCategory.appendChild(categoryImg);
 
         const categoryTitle = document.createElement('p');
         categoryTitle.textContent = category.title;
         categoryTitle.classList.add('category')
+        categoryTitle.setAttribute('data-category', category.title);
         sidebarCategory.appendChild(categoryTitle)
     })
 
@@ -105,16 +106,17 @@ function showTaskModalCategories() {
     }
 }
 
-function showCategoryPage() {
+function showCategoryPage(e) {
     const categoryContent = document.createElement('div')
-    categoryContent.classList.add('category-content')
+    categoryContent.classList.add('category-content', 'page')
  
             const categoryTitle = document.createElement('h1');
-            categoryTitle.textContent = `Tasks`;
+            categoryTitle.textContent = `${e.target.getAttribute("data-category")} Tasks`;
             categoryContent.appendChild(categoryTitle);
 
             const addTaskBtn = document.createElement('button')
             addTaskBtn.textContent = "Add Task +"
+            addTaskBtn.classList.add('addTask-btn')
             categoryContent.appendChild(addTaskBtn)
         
             const categoryTaskContainer = document.createElement('div');
