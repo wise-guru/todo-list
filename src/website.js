@@ -154,7 +154,8 @@ function createSidebar() {
         sidebarContent.appendChild(addCategories)
 
             const addCategoriesBtn = document.createElement('button')
-            addCategoriesBtn.textContent = 'Add Categories +'
+            addCategoriesBtn.classList.add('addCategory-btn')
+            addCategoriesBtn.textContent = 'Add Category +'
             addCategories.appendChild(addCategoriesBtn)
 
             addCategoriesBtn.addEventListener('click', function(e) {
