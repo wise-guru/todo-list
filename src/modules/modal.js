@@ -22,6 +22,7 @@ function addTasksModal() {
                 })
 
             const taskHeading = document.createElement('p')
+            taskHeading.classList.add('modal-title')
             taskHeading.textContent = 'Task'
             modalContent.appendChild(taskHeading)
 
@@ -41,11 +42,12 @@ function addTasksModal() {
 
                         const titleLabel = document.createElement('label')
                         titleLabel.htmlFor = 'titleInput'
-                        titleLabel.textContent = 'Title:'
+                        titleLabel.textContent = 'Title'
                         taskTitle.appendChild(titleLabel)
 
                         const titleInput = document.createElement('input')
                         titleInput.id = 'titleInput'
+                        titleInput.maxLength = 30;
                         taskTitle.appendChild(titleInput)
 
                     const taskDescription = document.createElement('div')
@@ -54,13 +56,14 @@ function addTasksModal() {
 
                         const descriptionLabel = document.createElement('label')
                         descriptionLabel.htmlFor = 'description'
-                        descriptionLabel.textContent = 'Description:'
+                        descriptionLabel.textContent = 'Description'
                         taskDescription.appendChild(descriptionLabel)
 
                         const descriptionInput = document.createElement('textarea')
                         descriptionInput.id = 'description'
                         descriptionInput.name = 'description'
                         descriptionInput.rows = 5;
+                        descriptionInput.maxLength = 100;
                         taskDescription.appendChild(descriptionInput)
                 
                 const rightFields = document.createElement('div')
@@ -73,7 +76,7 @@ function addTasksModal() {
 
                         const dateLabel = document.createElement('label')
                         dateLabel.htmlFor = 'dateInput'
-                        dateLabel.textContent = 'Date:'
+                        dateLabel.textContent = 'Date'
                         taskDate.appendChild(dateLabel)
 
                         const dateInput = document.createElement('input')
@@ -106,7 +109,7 @@ function addTasksModal() {
                                 prioritySelect.appendChild(pMed)
 
                                 const pHigh = document.createElement('option')
-                                pHigh.value = 'High'
+                                pHigh.value = 'high'
                                 pHigh.textContent = 'High'
                                 prioritySelect.appendChild(pHigh)
 
@@ -180,6 +183,7 @@ function addCategoriesModal() {
 
             const categoryHeading = document.createElement('p')
             categoryHeading.textContent = 'Category'
+            categoryHeading.classList.add('modal-title')
             modalContent.appendChild(categoryHeading)
 
 
@@ -202,7 +206,17 @@ function addCategoriesModal() {
 
                     const categoryInput = document.createElement('input')
                     categoryInput.id = 'categoryInput'
+                    categoryInput.maxLength = 20;
                     categoryTitle.appendChild(categoryInput)
+
+                        categoryInput.addEventListener('keypress', function(e) {
+            
+                            if(e.key == 32) {
+                                e.preventDefault()
+                                return false;
+                            }
+            
+                        })
 
                 const buttons = document.createElement('div')
                 buttons.classList.add( 'cg', 'task-btns')
