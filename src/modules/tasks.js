@@ -1,10 +1,8 @@
 import Edit from '../img/edit.png'
 import Delete from '../img/delete.png'
-import { remove } from 'lodash';
+import { divide, remove } from 'lodash';
 import loadModals from './modal';
 import Task from './task-entry';
-import Chevron from '../img/chevron.png'
-import Category from './category-entry'
 import { isThisWeek, isToday } from 'date-fns';
 import {validateEditTaskForm} from './validate-form'
 
@@ -17,19 +15,6 @@ function addTask(title, description, date, priority, categories) {
     taskDatabase.push(task);
     showTaskInfo(task);
 }
-
-
-
-const getTask = (id) => {
-    const task = taskDatabase.filter((id) => task.id === id)
-    console.log(task)
-
-    return task;
-}
-
-
-
-
 
 function clearTasks() {
     const taskContainer = document.querySelector('#task-container');
@@ -49,7 +34,7 @@ function showTaskInfo() {
             taskDatabase.forEach((task, i) => {
        
             const taskRow = document.createElement('div')
-            taskRow.classList.add('task-row')
+            taskRow.classList.add('task-row', `${task.priority}`)
             taskRow.setAttribute("data-index", i + 1)
             taskRow.setAttribute('data-category', task.categories)
             taskRow.setAttribute('data-date', task.date)
@@ -64,9 +49,30 @@ function showTaskInfo() {
                     taskLeft.classList.add('task-left')
                     firstRow.appendChild(taskLeft)
 
-                        const taskArrow = new Image();
-                        taskArrow.src = Chevron;
-                        taskLeft.appendChild(taskArrow)
+                        const taskArrowSvg = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+
+                            taskArrowSvg.setAttribute("width", '16px')
+                            taskArrowSvg.setAttribute("height", '16px')
+                            taskArrowSvg.setAttribute('viewbox', "0 0 16 16")
+                            taskArrowSvg.classList.add('chevron')
+                            taskLeft.appendChild(taskArrowSvg);
+                          
+                            const taskArrowPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+                            taskArrowPath.setAttribute('d', "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" )
+                            taskArrowSvg.appendChild(taskArrowPath)
+
+                                taskArrowSvg.addEventListener('click', function(e) {
+                                    let open = taskArrowSvg.classList.contains('open');
+
+                                    if(!open) {
+                                        taskArrowSvg.classList.add('open')
+                                        secondRow.classList.remove('hidden')
+                                    } else {
+                                        taskArrowSvg.classList.remove('open') 
+                                        secondRow.classList.add('hidden')
+                                    }
+                                })
+                       
 
                         const doneTask = document.createElement('input')
                         doneTask.type = 'checkbox'
@@ -76,10 +82,6 @@ function showTaskInfo() {
                         doneTask.setAttribute("data-checkbox", i + 1)
                         doneTask.checked = task.isCompleted;
                         taskLeft.appendChild(doneTask)
-
-                            // doneTask.addEventListener('click', function(e) {
-                            //     saveCompletedTasks(e);
-                            // })
 
                             if (task.isCompleted) {
                                 taskRow.classList.add('done');
@@ -125,17 +127,53 @@ function showTaskInfo() {
                 
                 const secondRow = document.createElement('div')
                 taskRow.appendChild(secondRow)
-                secondRow.classList.add('second-row')
+                secondRow.classList.add('second-row', 'hidden')
 
                     const taskDescription = document.createElement('div')
-                    taskDescription.textcontent = `Description: ${task.description}`;
                     secondRow.appendChild(taskDescription)
+                 
+                            
+                        const descriptionTitle = document.createElement('span')
+                        descriptionTitle.textContent = 'Description: ';
+                        descriptionTitle.classList.add('detail-title')
+                        taskDescription.appendChild(descriptionTitle);
+
+                        taskDescription.appendChild(document.createTextNode(task.description));
+                       
 
                     const taskDate = document.createElement('div')
-                    taskDate.textContent = (`Due date: ${task.date}`)
                     secondRow.appendChild(taskDate)
+
+                            const dateTitle = document.createElement('span')
+                            dateTitle.textContent = 'Due date: '
+                            dateTitle.classList.add('detail-title')
+                            taskDate.appendChild(dateTitle)
+
+                            taskDate.appendChild(document.createTextNode(task.date));
+
+                    const taskCategory = document.createElement('div');
+                    secondRow.appendChild(taskCategory);
+
+                            const categoryTitle = document.createElement('span')
+                            categoryTitle.textContent = 'Category: '
+                            categoryTitle.classList.add('detail-title')
+                            taskCategory.appendChild(categoryTitle)
+
+                            taskCategory.appendChild(document.createTextNode(task.categories));
+
+
+
+                    const taskPriority = document.createElement('div');
+                    secondRow.appendChild(taskPriority);
+
+                            const priorityTitle = document.createElement('span')
+                            priorityTitle.textContent = 'Priority: ';
+                            priorityTitle.classList.add('detail-title');
+                            taskPriority.appendChild(priorityTitle)
+
+                            taskPriority.appendChild(document.createTextNode(task.priority))
+
              })
-    // filterbyCategory()
                     
     return taskContainer;
 
@@ -143,10 +181,9 @@ function showTaskInfo() {
 }
 
 function editTask(task) {
-    loadModals('edit')
-    // let task = Storage.getTaskDatabase().getCategory().getTaskfromDatabase(taskTitle)
+    loadModals('task')
     const titleInput = document.querySelector('#titleInput')
-    const descInput = document.querySelector('#descInput')
+    const descInput = document.querySelector('#description')
     const dateInput = document.querySelector('#dateInput')
     const selectPriority = document.querySelector('#taskPriority')
     const selectCategory = document.querySelector('#categories-select')
@@ -185,7 +222,6 @@ function editTask(task) {
 function saveEditedTask(title, description, date, priority, categories, selectedIndex) {
 
     let updatedTask = new Task(title, description, date, priority, categories)
-    console.log(updatedTask)
 
     for(let i = 0; i < taskDatabase.length; i++) {
         if(taskDatabase[i].id == selectedIndex ) {
@@ -195,16 +231,11 @@ function saveEditedTask(title, description, date, priority, categories, selected
 
         localStorage.setItem('tasks', JSON.stringify(taskDatabase))
     }
+    window.location.reload();
 }
 
 function saveCompletedTasks(e) {
-    let selectedTask = e.target.parentNode.parentNode.parentNode;
-    let selectedIndex = selectedTask.getAttribute("data-index")
     const checkboxes = document.querySelectorAll('.checkboxes');
-    
-
-    console.log(selectedIndex)
-
 
     Array.from(checkboxes).forEach(checkbox=> {
         const checkboxNum = checkbox.getAttribute("data-checkbox")
@@ -213,15 +244,10 @@ function saveCompletedTasks(e) {
             
             if(taskDatabase[i].id == checkboxNum) {
                 taskDatabase[i].isCompleted = checkbox.checked;
-                console.log(checkbox.checked)
-               
             }
-    
-            localStorage.setItem('tasks', JSON.stringify(taskDatabase))
+            localStorage.setItem('tasks', JSON.stringify(taskDatabase))    
         }
-
     })
-
 }
 
 
