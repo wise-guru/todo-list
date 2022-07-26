@@ -188,14 +188,14 @@ function editTask(task) {
     const selectPriority = document.querySelector('#taskPriority')
     const selectCategory = document.querySelector('#categories-select')
     const addTaskBtn = document.querySelector('#addTaskBtn')
-    const modalContent = document.querySelector('.modal-content')
+    const buttons = document.querySelector('.task-btns')
 
     addTaskBtn.remove()
     const saveTaskBtn = document.createElement('button')
     saveTaskBtn.classList.add('task-btn')
     saveTaskBtn.id = 'saveTaskBtn'
     saveTaskBtn.textContent = 'Save Task'
-    modalContent. appendChild(saveTaskBtn)
+    buttons. appendChild(saveTaskBtn)
 
         saveTaskBtn.addEventListener('click', function(e) {
             validateEditTaskForm(e, selectedIndex)

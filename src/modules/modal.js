@@ -211,11 +211,11 @@ function addCategoriesModal() {
 
                         categoryInput.addEventListener('keypress', function(e) {
             
-                            if(e.key == 32) {
+                            if(e.key == ' ') {
                                 e.preventDefault()
                                 return false;
+        
                             }
-            
                         })
 
                 const buttons = document.createElement('div')
