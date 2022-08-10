@@ -6,10 +6,17 @@ let categoryDatabase = JSON.parse(localStorage.getItem('categories')) || [];
 
 function addTasksModal() {
     const taskModal = document.createElement('div')
-    taskModal.classList.add('bg-modal')
+    taskModal.classList.add('bg-modal', 'addTask-modal')
+
+        taskModal.addEventListener('keydown', function(e) {
+            if(e.key == 'Enter' && taskModal.classList.contains('addTask-modal')) {
+                validateTaskForm(e)
+            }
+        })
 
         const modalContent = document.createElement('div')
         modalContent.classList.add('modal-content')
+        
         taskModal.appendChild(modalContent)
 
             const xBtn = document.createElement('div')
@@ -30,6 +37,7 @@ function addTasksModal() {
             const taskForm = document.createElement('form')
             taskForm.classList.add('task-form')
             modalContent.appendChild(taskForm)
+
 
                 const leftFields = document.createElement('div')
                 leftFields.classList.add('left-fields')
@@ -155,7 +163,7 @@ function addTasksModal() {
                 addTaskBtn.classList.add('task-btn')
                 addTaskBtn.id = 'addTaskBtn'
                 addTaskBtn.textContent = 'Add Task'
-                buttons. appendChild(addTaskBtn)
+                buttons.appendChild(addTaskBtn)
 
                     addTaskBtn.addEventListener('click', function(e) {
                         validateTaskForm(e)
@@ -209,12 +217,16 @@ function addCategoriesModal() {
                     categoryInput.maxLength = 20;
                     categoryTitle.appendChild(categoryInput)
 
-                        categoryInput.addEventListener('keypress', function(e) {
+                        categoryInput.addEventListener('keydown', function(e) {
             
                             if(e.key == ' ') {
                                 e.preventDefault()
                                 return false;
         
+                            }
+
+                            if(e.key == 'Enter') {
+                                validateCategoryForm(e)
                             }
                         })
 

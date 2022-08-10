@@ -182,6 +182,7 @@ function showTaskInfo() {
 
 function editTask(task) {
     loadModals('task')
+    const taskModal = document.querySelector('.bg-modal')
     const titleInput = document.querySelector('#titleInput')
     const descInput = document.querySelector('#description')
     const dateInput = document.querySelector('#dateInput')
@@ -191,11 +192,20 @@ function editTask(task) {
     const buttons = document.querySelector('.task-btns')
 
     addTaskBtn.remove()
+    taskModal.classList.remove('addTask-modal')
+    taskModal.classList.add('edit-modal')
+
+    taskModal.addEventListener('keydown', function(e) {
+        if(e.key == 'Enter' && taskModal.classList.contains('edit-modal')) {
+            validateEditTaskForm(e, selectedIndex)
+        }
+    })
+
     const saveTaskBtn = document.createElement('button')
     saveTaskBtn.classList.add('task-btn')
     saveTaskBtn.id = 'saveTaskBtn'
     saveTaskBtn.textContent = 'Save Task'
-    buttons. appendChild(saveTaskBtn)
+    buttons.appendChild(saveTaskBtn)
 
         saveTaskBtn.addEventListener('click', function(e) {
             validateEditTaskForm(e, selectedIndex)
