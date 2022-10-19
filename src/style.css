@@ -246,7 +246,7 @@ form label, form input {
     border: grey solid 1px;
 }
 
-.modal-content button:hover {
+button:hover {
     cursor: pointer;
 }
 
