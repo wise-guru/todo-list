@@ -2,7 +2,7 @@
 
 A to-do list made using html, css, javascript, and webpack. I learned how to better utilize modular JS and other ES6 principles.
 
-![To-do list Gif](https://github.com/wise-guru/portfolio/blob/main/src/assets/projects/todo.gif)
+![To-do list Gif](https://github.com/wise-guru/todo-list/blob/main/src/img/todo.gif)
 
 Live Link: https://wise-guru.github.io/todo-list/
 
